@@ -38,8 +38,11 @@ COCO - https://cocodataset.org/#explore
 сервис для разметки и многого - https://supervise.ly/
 
 
-### Без категории:
+## Без категории:
 SOTA(State-of-the-Art) модели для различных типов задач - https://paperswithcode.com/sota
-Канал разработчика, специализирующегося на разработке embedded систем- https://www.youtube.com/channel/UC13sOcgmqv_1VtYpP24wVUw/videos
-Заметки Computer Vision (очень много полезных статей) - https://cv-blog.ru (https://cv-blog.ru/?p=327)
+
+Блог инженера Computer Vision (очень много полезных статей и видео):
+- https://www.youtube.com/channel/UC13sOcgmqv_1VtYpP24wVUw/videos
+- https://cv-blog.ru (https://cv-blog.ru/?p=327)
+
 https://course.fast.ai/
