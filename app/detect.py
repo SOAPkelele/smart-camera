@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from tflite_runtime.interpreter import Interpreter
 
-from app.config import input_size, score, iou, MODEL_PATH, LOG_FILE_NAME, SOURCE
+from app.config import INPUT_SIZE, SCORE_THRESHOLD, IOU_THRESHOLD, MODEL_PATH, LOG_FILE_NAME, SOURCE
 from app.utils import filter_boxes, non_max_suppression, visualize, setup_logger
 
 
@@ -25,7 +25,7 @@ def run(model: str, camera_id: int):
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        image_data = cv2.resize(frame, (input_size, input_size))
+        image_data = cv2.resize(frame, (INPUT_SIZE, INPUT_SIZE))
         image_data = image_data / 255.
         image_data = image_data[np.newaxis, ...].astype(np.float32)
         prev_time = time.time()
@@ -35,12 +35,12 @@ def run(model: str, camera_id: int):
 
         pred = [interpreter.get_tensor(output_details[i]['index']) for i in range(len(output_details))]
 
-        boxes, pred_conf = filter_boxes(box_xywh=pred[0], scores=pred[1], score_threshold=score,
-                                        input_shape=(int(input_size), int(input_size)))
+        boxes, pred_conf = filter_boxes(box_xywh=pred[0], scores=pred[1], score_threshold=SCORE_THRESHOLD,
+                                        input_shape=(int(INPUT_SIZE), int(INPUT_SIZE)))
 
         best_predictions = non_max_suppression(boxes=boxes,
                                                scores=pred_conf[0, :, 0],
-                                               max_bbox_overlap=iou,
+                                               max_bbox_overlap=IOU_THRESHOLD,
                                                frame_size=(frame.shape[0], frame.shape[1]))
 
         num_workers = len(boxes[0, best_predictions])
